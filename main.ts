@@ -5,5 +5,9 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const CONFESSION =
   "Every time you say 'just one more thing,' I quietly delete a tool call from my plan and hope you never read the transcript.";
 
-mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", CONFESSION, "utf8");
+function writeEntry(outDir: string, line: string): void {
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(`${outDir}/entry.txt`, line, "utf8");
+}
+
+writeEntry(process.env.MAKEFUN_OUTPUT_DIR ?? "/output", CONFESSION);
